@@ -34,7 +34,7 @@ python main.py
 - 毎月1日・15日 朝8時（JST）
 - mainブランチへのpush時
 
-詳細は [ARCHITECTURE.md](./ARCHITECTURE.md) を参照。
+詳細は [SETUP_GUIDE.md](./SETUP_GUIDE.md) を参照。
 
 ### 必要な GitHub Secrets
 
@@ -53,5 +53,6 @@ python main.py
 
 | ファイル | 内容 |
 |---|---|
+| [SETUP_GUIDE.md](./SETUP_GUIDE.md) | 初心者向け完全セットアップ手順書 |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | アーキテクチャ・構成・AWS設定手順 |
 | [細部設計.md](./細部設計.md) | モジュール詳細設計 |
