@@ -5,17 +5,17 @@ client = OpenAI()
 
 def generate_comment(room):
     prompt = f"""
-    以下の賃貸情報を評価してください。
+    以下の賃貸物件（建物）情報を評価してください。
     短く一言コメントで。
 
-    家賃: {room['rent']}
-    間取り: {room['layout']}
-    階: {room['floor']}
+    物件名: {room.get('name', '不明')}
+    住所: {room.get('address', '不明')}
+    空室状況: {room.get('status', '不明')}
     """
 
     try:
         res = client.chat.completions.create(
-            model="gpt-5-mini",
+            model="gpt-4o-mini",
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7
         )

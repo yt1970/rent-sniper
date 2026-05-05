@@ -17,7 +17,7 @@ def get_property_links():
         if not href:
             continue
 
-        if "/chintai/" in href and href.count("/") > 3:
+        if "/chintai/kanto/tokyo/" in href:
             if href.startswith("http"):
                 links.add(href)
             else:

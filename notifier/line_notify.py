@@ -9,7 +9,7 @@ LINE_USER_ID = os.getenv("LINE_USER_ID")
 
 
 def send_line(message):
-    url = "https://api.line.me/v2/bot/message/push"
+    url = "https://api.line.me/v2/bot/message/broadcast"
 
     headers = {
         "Authorization": f"Bearer {LINE_TOKEN}",
@@ -17,7 +17,6 @@ def send_line(message):
     }
 
     body = {
-        "to": LINE_USER_ID,
         "messages": [{"type": "text", "text": message}]
     }
 
