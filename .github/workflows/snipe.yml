@@ -3,6 +3,9 @@ name: rent-sniper
 on:
   schedule:
     - cron: '0 23 1,15 * *'  # 毎月1日・15日 JST朝8時（UTC 23:00前日）
+  push:
+    branches:
+      - main                  # mainへのpush時に自動実行
   workflow_dispatch:           # 手動実行ボタン
 
 jobs:
