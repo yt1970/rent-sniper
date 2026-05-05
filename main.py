@@ -19,6 +19,11 @@ def collect_all_rooms():
     return all_rooms
 
 
+def gone_rooms(old: list[dict], new: list[dict]) -> list[dict]:
+    new_ids = set(r["id"] for r in new)
+    return [r for r in old if r["id"] not in new_ids]
+
+
 def main():
     print("start collecting...")
 
@@ -26,13 +31,14 @@ def main():
     old_data = load_previous()
 
     new_rooms = diff_rooms(old_data, new_data)
+    sold_rooms = gone_rooms(old_data, new_data)
 
-    print(f"new rooms: {len(new_rooms)}")
+    print(f"new rooms: {len(new_rooms)}, sold rooms: {len(sold_rooms)}")
 
-    for room in new_rooms[:5]:  # 通知多すぎ防止
-        # comment = generate_comment(room)
-
-        message = f"""🏠 新着空室情報！
+    if new_rooms:
+        for room in new_rooms[:5]:
+            # comment = generate_comment(room)
+            message = f"""🏠 新着空室情報！
 
 物件名: {room.get('name', '不明')}
 住所: {room.get('address', '不明')}
@@ -42,7 +48,21 @@ def main():
 空室状況: {room.get('status', '不明')}
 
 {room.get('url', '')}"""
-        send_line(message)
+            send_line(message)
+
+    if sold_rooms:
+        for room in sold_rooms[:5]:
+            message = f"""🔒 成約済みになりました
+
+物件名: {room.get('name', '不明')}
+住所: {room.get('address', '不明')}
+家賃: {room.get('rent', '不明')}
+
+{room.get('url', '')}"""
+            send_line(message)
+
+    if not new_rooms and not sold_rooms:
+        send_line("🏠 新着なし")
 
     save_current(new_data)
 
