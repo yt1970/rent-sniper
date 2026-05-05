@@ -1,16 +1,19 @@
 # 🏠 RentSniper
 
-VillageHouseの東京都内物件を定期巡回し、新規空室をLINEに通知するツール。  
-GitHub Actions で月2回自動実行、物件データは AWS S3 に永続化。
+VillageHouseの東京都内物件を定期巡回し、新規空室をLINEに通知するツール。
+GitHub Actions で月2回＋push時に自動実行、物件データは AWS S3 に永続化。
 
 ---
 
 ## 機能
 
-- 🔍 スクレイピング（VillageHouse 一覧 → 詳細）
-- 📊 差分検知（新規物件のみ抽出）
+- 🔍 スクレイピング（VillageHouse 一覧 → 詳細、Playwright使用）
+- 📊 差分検知（新規物件・成約済み物件を検知）
 - 🤖 AIコメント生成（実装中）
 - 📲 LINE通知
+  - 🏠 新着空室情報
+  - 🔒 成約済み通知
+  - 🏠 新着なし（変化なしの場合）
 
 ---
 
@@ -18,6 +21,7 @@ GitHub Actions で月2回自動実行、物件データは AWS S3 に永続化�
 
 ```bash
 pip install -r requirements.txt
+playwright install chromium
 cp .env.example .env   # 環境変数を編集
 python main.py
 ```
@@ -26,7 +30,10 @@ python main.py
 
 ## 本番運用（GitHub Actions + AWS S3）
 
-月2回（1日・15日 朝8時）自動実行。  
+以下のタイミングで自動実行：
+- 毎月1日・15日 朝8時（JST）
+- mainブランチへのpush時
+
 詳細は [ARCHITECTURE.md](./ARCHITECTURE.md) を参照。
 
 ### 必要な GitHub Secrets
