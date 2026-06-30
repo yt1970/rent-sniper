@@ -2,25 +2,37 @@ import requests
 from bs4 import BeautifulSoup
 
 BASE_URL = "https://www.villagehouse.jp"
-LIST_URL = BASE_URL + "/chintai/kanto/tokyo/"
+TARGET_AREAS = [
+    {
+        "name": "東京都",
+        "url": BASE_URL + "/chintai/kanto/tokyo/",
+        "path": "/chintai/kanto/tokyo/",
+    },
+    {
+        "name": "佐賀県",
+        "url": BASE_URL + "/chintai/kyushu/saga/",
+        "path": "/chintai/kyushu/saga/",
+    },
+]
 
 
 def get_property_links():
-    html = requests.get(LIST_URL, timeout=10).text
-    soup = BeautifulSoup(html, "html.parser")
-
     links = set()
 
-    for a in soup.select("a[href]"):
-        href = a.get("href")
+    for area in TARGET_AREAS:
+        html = requests.get(area["url"], timeout=10).text
+        soup = BeautifulSoup(html, "html.parser")
 
-        if not href:
-            continue
+        for a in soup.select("a[href]"):
+            href = a.get("href")
 
-        if "/chintai/kanto/tokyo/" in href:
-            if href.startswith("http"):
-                links.add(href)
-            else:
-                links.add(BASE_URL + href)
+            if not href:
+                continue
+
+            if area["path"] in href:
+                if href.startswith("http"):
+                    links.add(href)
+                else:
+                    links.add(BASE_URL + href)
 
     return list(links)
