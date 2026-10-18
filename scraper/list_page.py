@@ -20,6 +20,8 @@ TARGET_AREAS = [
     },
 ]
 
+TARGET_CITY_NAMES = tuple(area["name"] for area in TARGET_AREAS)
+
 
 def get_property_links():
     links = set()

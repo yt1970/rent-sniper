@@ -1,4 +1,4 @@
-from scraper.list_page import get_property_links
+from scraper.list_page import TARGET_CITY_NAMES, get_property_links
 from scraper.detail_page import get_rooms
 from storage.json_store import load_previous, save_current, diff_rooms
 from notifier.line_notify import send_line
@@ -24,11 +24,16 @@ def gone_rooms(old: list[dict], new: list[dict]) -> list[dict]:
     return [r for r in old if r["id"] not in new_ids]
 
 
+def is_target_room(room: dict) -> bool:
+    address = room.get("address", "")
+    return any(city in address for city in TARGET_CITY_NAMES)
+
+
 def main():
     print("start collecting...")
 
-    new_data = collect_all_rooms()
-    old_data = load_previous()
+    new_data = [room for room in collect_all_rooms() if is_target_room(room)]
+    old_data = [room for room in load_previous() if is_target_room(room)]
 
     new_rooms = diff_rooms(old_data, new_data)
     sold_rooms = gone_rooms(old_data, new_data)
