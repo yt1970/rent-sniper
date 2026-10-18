@@ -3,11 +3,11 @@ from bs4 import BeautifulSoup
 
 BASE_URL = "https://www.villagehouse.jp"
 TARGET_AREAS = [
-    {
-        "name": "東京都",
-        "url": BASE_URL + "/chintai/kanto/tokyo/",
-        "path": "/chintai/kanto/tokyo/",
-    },
+    # {
+    #     "name": "東京都",
+    #     "url": BASE_URL + "/chintai/kanto/tokyo/",
+    #     "path": "/chintai/kanto/tokyo/",
+    # },
     {
         "name": "佐賀県",
         "url": BASE_URL + "/chintai/kyushu/saga/",
