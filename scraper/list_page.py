@@ -9,9 +9,14 @@ TARGET_AREAS = [
     #     "path": "/chintai/kanto/tokyo/",
     # },
     {
-        "name": "佐賀県",
-        "url": BASE_URL + "/chintai/kyushu/saga/",
-        "path": "/chintai/kyushu/saga/",
+        "name": "佐賀市",
+        "url": BASE_URL + "/chintai/kyushu/saga/saga-shi-412015/",
+        "path": "/chintai/kyushu/saga/saga-shi-412015/",
+    },
+    {
+        "name": "鳥栖市",
+        "url": BASE_URL + "/chintai/kyushu/saga/tosu-shi-412031/",
+        "path": "/chintai/kyushu/saga/tosu-shi-412031/",
     },
 ]
 
